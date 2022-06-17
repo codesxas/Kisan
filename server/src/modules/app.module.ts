@@ -1,6 +1,8 @@
 import express, { Express } from "express";
 import { errorHandler } from "../helper";
+import { configService } from "../config/config.service";
 
+const { Client } = require("pg");
 class AppModule {
   app: Express;
 
@@ -29,11 +31,26 @@ class AppModule {
     this.app.use(require(path));
   }
 
+  /* connecting with postgres db */
+  public createConnection() {
+    const connection = new Client(configService.getDbConfig());
+
+    connection.connect((err: any) => {
+      if (err) throw err;
+      console.log("Connected!");
+    });
+
+    return connection;
+  }
+
   public create(): Express {
     this.useParser();
+    const connection = this.createConnection();
 
     /* Error handler middleware */
     this.app.use(errorHandler);
+
+    /* Routing */
     this.useBaseRoute();
 
     return this.app;

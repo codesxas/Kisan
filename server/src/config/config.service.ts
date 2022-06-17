@@ -26,15 +26,25 @@ class ConfigService {
     return mode != "DEV";
   }
 
+  public getDbConfig() {
+    return {
+      host: this.getValue("POSTGRES_HOST"),
+      port: parseInt(this.getValue("POSTGRES_PORT")),
+      user: this.getValue("POSTGRES_USER"),
+      database: this.getValue("POSTGRES_DATABASE"),
+      password: this.getValue("POSTGRES_PASSWORD"),
+    }
+  }
+
   public getConfigData() {
     return {
-      type: "mysql",
+      type: "postgres",
 
-      host: this.getValue("MYSQL_HOST"),
-      port: parseInt(this.getValue("MYSQL_PORT")),
-      username: this.getValue("MYSQL_USER"),
-      password: this.getValue("MYSQL_PASSWORD"),
-      database: this.getValue("MYSQL_DATABASE"),
+      host: this.getValue("POSTGRES_HOST"),
+      port: parseInt(this.getValue("POSTGRES_PORT")),
+      username: this.getValue("POSTGRES_USER"),
+      password: this.getValue("POSTGRES_PASSWORD"),
+      database: this.getValue("POSTGRES_DATABASE"),
 
       itemPerPage: this.getValue("ITEMS_PER_PAGE"),
 
@@ -54,11 +64,11 @@ class ConfigService {
 }
 
 const configService = new ConfigService(process.env).ensureValues([
-  "MYSQL_HOST",
-  "MYSQL_PORT",
-  "MYSQL_USER",
-  "MYSQL_PASSWORD",
-  "MYSQL_DATABASE",
+  "POSTGRES_HOST",
+  "POSTGRES_PORT",
+  "POSTGRES_USER",
+  "POSTGRES_PASSWORD",
+  "POSTGRES_DATABASE",
   "ITEMS_PER_PAGE",
 ]);
 
