@@ -1,0 +1,52 @@
+.main {
+  display: flex;
+
+  .section {
+    padding: 0 0 0 0.5rem;
+
+    &:not(:last-child) {
+      border-right: 1px solid $clr-secondary;
+    }
+  }
+}
+
+.header {
+  padding-top: 2rem;
+
+  .title {
+    text-align: center;
+    font-size: $fs-h4;
+    font-family: $ff-alt-alpha;
+    border-bottom: 1px solid $clr-secondary;
+
+    &::first-letter {
+      font-size: $fs-h1;
+    }
+  }
+
+  .form {
+    padding: 2rem;
+    border-bottom: 1px solid $clr-secondary;
+
+    .form-title {
+      font-size: $fs-base;
+      font-weight: 500;
+      margin-bottom: 1rem;
+
+      span {
+        font-size: $fs-micro;
+        font-weight: 400;
+      }
+    }
+
+    .form-input input {
+      width: 100%;
+      border: none;
+      outline: none;
+      background-color: $clr-secondary;
+      padding: 1rem 2rem;
+      border-radius: 0.5rem;
+      font-size: $fs-milli;
+    }
+  }
+}

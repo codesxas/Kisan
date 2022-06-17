@@ -1,0 +1,51 @@
+/* primary brand color - skyblue - with shades and tints via Sass functions */
+$clr-primary: #3dada5;
+$clr-primary-lt: #8ec7c7;
+$clr-primary-ltr: #e2f2f0;
+
+$clr-primary-dk: darken($clr-primary, 5%);
+$clr-primary-dkr: darken($clr-primary, 10%);
+
+/* secondary brand color - hotpink - with shades and tints via Sass functions */
+$clr-secondary: #f1f3f2;
+$clr-secondary-lt: lighten($clr-secondary, 5%);
+$clr-secondary-ltr: lighten($clr-secondary, 10%);
+
+$clr-secondary-dk: darken($clr-secondary, 5%);
+$clr-secondary-dkr: darken($clr-secondary, 50%);
+
+/* neutrals */
+$clr-ntrl-min: #fff;
+$clr-ntrl-max: #000;
+
+/* color */
+$clr-orange: #f2b989;
+$clr-teal: #abd2c9;
+$clr-pink: #f3b2c8;
+$clr-green: #9dc06f;
+$clr-black: #2b2a29;
+$clr-gray: #a1a1a1;
+
+/* mask */
+$clr-hover-min: rgba($clr-ntrl-min, 0.6);
+// $mask: rgba(30, 30, 30, 0.352);
+
+/* background color classes */
+.bg-primary {
+  background-color: $clr-primary !important;
+}
+.bg-orange {
+  background-color: $clr-orange;
+}
+.bg-teal {
+  background-color: $clr-teal;
+}
+.bg-pink {
+  background-color: $clr-pink;
+}
+.bg-green {
+  background-color: $clr-green;
+}
+.bg-gray {
+  background-color: $clr-gray;
+}

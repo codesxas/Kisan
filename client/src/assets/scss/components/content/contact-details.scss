@@ -1,0 +1,141 @@
+.contact-details {
+  margin: 0 20rem;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10rem 0 2rem;
+    border-bottom: 1px solid $clr-secondary;
+
+    .img-wrap {
+      height: 10rem;
+      width: 10rem;
+      border-radius: 50%;
+      position: relative;
+      margin-left: 15rem;
+      text-align: right;
+
+      .contact-img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: $fs-h1;
+        color: $clr-ntrl-min;
+      }
+    }
+
+    .info-wrap {
+      text-align: left;
+      width: 55%;
+
+      .contact-name {
+        font-size: $fs-h2;
+        font-weight: 500;
+        margin: 0;
+      }
+      .contact-desc {
+        font-size: $fs-milli;
+        color: $clr-gray;
+      }
+      .act-btn {
+        .chat-btn {
+          border: none;
+          outline: none;
+          background-color: $clr-primary;
+          color: $clr-ntrl-min;
+          padding: 0.7rem 1.5rem;
+          border-radius: 0.5rem;
+          font-size: $fs-micro;
+
+          svg {
+            font-size: $fs-icons;
+            margin-right: 1rem;
+          }
+        }
+      }
+    }
+  }
+
+  .desc-list {
+    .desc-item {
+      border-bottom: 1px solid $clr-secondary;
+      padding: 2rem 0;
+
+      .info-wrap {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .item-title {
+          font-size: $fs-milli;
+          color: $clr-gray;
+          text-align: right;
+          width: 40%;
+        }
+        .item-desc {
+          font-size: $fs-micro;
+          color: $clr-black;
+          text-align: left;
+          width: 55%;
+        }
+      }
+    }
+  }
+
+  .contact-history-list {
+    .contact-history-title {
+      text-align: left;
+      padding-top: 1rem;
+      font-size: $fs-h6;
+      font-weight: 500;
+    }
+
+    .list-item {
+      display: flex;
+      align-items: center;
+      background-color: $clr-secondary;
+      border-radius: 1rem;
+      padding: 2rem;
+      text-align: left;
+
+      &:not(:last-child) {
+        margin-bottom: 1.5rem;
+      }
+
+      .img-wrap {
+        height: 4rem;
+        width: 4rem;
+        border-radius: 50%;
+        position: relative;
+
+        .contact-img {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-size: $fs-h5;
+          color: $clr-ntrl-min;
+        }
+      }
+
+      .info-wrap {
+        margin-left: 1rem;
+        width: calc(100% - 7rem);
+
+        .contact-name {
+          font-size: $fs-milli;
+          font-weight: 500;
+        }
+        .contact-desc {
+          font-size: $fs-micro;
+          color: $clr-gray;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          width: 100%;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+}
