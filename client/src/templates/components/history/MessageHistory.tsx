@@ -4,7 +4,9 @@ function MessageHistory() {
   return (
     <div className="message-history">
       <div className="header">
-        <div className="img-wrap"></div>
+        <div className="img-wrap bg-primary">
+          <div className="contact-img">P</div>
+        </div>
 
         <div className="info-wrap">
           <p className="contact-name">Fabio Basile</p>
@@ -19,6 +21,7 @@ function MessageHistory() {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hoc non
               est positum in nostra actione.
             </p>
+            <span>12th Jan, 2021 7:05 pm</span>
           </div>
 
           <div className="chat-history-item">
@@ -27,6 +30,7 @@ function MessageHistory() {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hoc non
               est positum in nostra actione.
             </p>
+            <span>12th Jan, 2021 7:05 pm</span>
           </div>
 
           <div className="chat-history-item">
@@ -35,6 +39,7 @@ function MessageHistory() {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hoc non
               est positum in nostra actione.
             </p>
+            <span>12th Jan, 2021 7:05 pm</span>
           </div>
         </div>
       </div>

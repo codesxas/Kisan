@@ -8,7 +8,7 @@ $clr-primary-dkr: darken($clr-primary, 10%);
 
 /* secondary brand color - hotpink - with shades and tints via Sass functions */
 $clr-secondary: #f1f3f2;
-$clr-secondary-lt: lighten($clr-secondary, 5%);
+$clr-secondary-lt: lighten($clr-secondary, 2%);
 $clr-secondary-ltr: lighten($clr-secondary, 10%);
 
 $clr-secondary-dk: darken($clr-secondary, 5%);

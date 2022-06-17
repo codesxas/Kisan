@@ -1,0 +1,74 @@
+.message-history {
+  margin-left: -0.5rem;
+  .header {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    background-color: $clr-secondary-lt;
+    padding: 2rem;
+
+    .img-wrap {
+      height: 4rem;
+      width: 4rem;
+      border-radius: 50%;
+      position: relative;
+
+      .contact-img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: $fs-h4;
+        color: $clr-ntrl-min;
+      }
+    }
+
+    .info-wrap {
+      margin-left: 1rem;
+
+      .contact-name {
+        font-size: $fs-base;
+        font-weight: 500;
+        color: $clr-gray;
+        margin: 0;
+      }
+    }
+  }
+
+  .chat-window {
+    .chat-history-list {
+      display: flex;
+      align-items: flex-end;
+      flex-direction: column;
+      margin-right: 4rem;
+    }
+
+    .chat-history-item {
+      text-align: left;
+      background-color: $clr-gray;
+      border-radius: 1rem 1rem 5rem 1rem;
+      width: 40%;
+
+      padding: 2rem;
+      margin-top: 1.5rem;
+      color: $clr-ntrl-min;
+
+      .contact-name {
+        text-align: right;
+        font-size: $fs-base;
+        font-weight: 500;
+      }
+
+      .chat-content {
+        font-size: $fs-milli;
+      }
+
+      span {
+        font-size: $fs-micro;
+        font-weight: 400;
+        margin-top: 1rem;
+        color: $clr-secondary;
+      }
+    }
+  }
+}

@@ -291,6 +291,69 @@
   white-space: nowrap;
 }
 
+.message-history {
+  margin-left: -0.5rem;
+}
+.message-history .header {
+  text-align: left;
+  display: flex;
+  align-items: center;
+  background-color: #f6f8f7;
+  padding: 2rem;
+}
+.message-history .header .img-wrap {
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
+  position: relative;
+}
+.message-history .header .img-wrap .contact-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.4rem;
+  color: #fff;
+}
+.message-history .header .info-wrap {
+  margin-left: 1rem;
+}
+.message-history .header .info-wrap .contact-name {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #a1a1a1;
+  margin: 0;
+}
+.message-history .chat-window .chat-history-list {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  margin-right: 4rem;
+}
+.message-history .chat-window .chat-history-item {
+  text-align: left;
+  background-color: #a1a1a1;
+  border-radius: 1rem 1rem 5rem 1rem;
+  width: 40%;
+  padding: 2rem;
+  margin-top: 1.5rem;
+  color: #fff;
+}
+.message-history .chat-window .chat-history-item .contact-name {
+  text-align: right;
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+.message-history .chat-window .chat-history-item .chat-content {
+  font-size: 1.4rem;
+}
+.message-history .chat-window .chat-history-item span {
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-top: 1rem;
+  color: #f1f3f2;
+}
+
 * {
   padding: 0;
   margin: 0;
