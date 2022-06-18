@@ -23,7 +23,7 @@ function* onPostItems(action) {
 
 function* onGetHistoryItems() {
   try {
-    const response = yield call(api.getFavoriteItems);
+    const response = yield call(api.getHistoryItems);
     yield put(actions.getHistoryItemsSuccess(response));
   } catch (error) {
     yield put(actions.getHistoryItemsFail(error.response));

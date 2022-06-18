@@ -2,15 +2,13 @@ import React from "react";
 
 type Props = {
   contact_name: string;
-  message_list: List;
+  message_list: List[];
 };
 
-type List = [
-  {
-    message: string;
-    datetime: string;
-  }
-];
+type List = {
+  message: string;
+  datetime: string;
+};
 
 function MessageHistory({ contact_name, message_list }: Props) {
   return (

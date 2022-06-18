@@ -16,9 +16,33 @@ function View({ activeContactID, contactType, noContactData }: Props) {
     <div className="contact-view">
       {activeContactID ? (
         contactType === "contact" ? (
-          <ContactDetails activeContactID={activeContactID}  />
+          <ContactDetails activeContactID={activeContactID} />
         ) : (
-          <MessageHistory />
+          <MessageHistory
+            contact_name="Dian Loft"
+            message_list={[
+              {
+                message:
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hoc non est positum in nostra actione.",
+                datetime: "12th Jan, 2021 7:05 pm",
+              },
+              {
+                message:
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hoc non est positum in nostra actione.",
+                datetime: "12th Jan, 2021 7:05 pm",
+              },
+              {
+                message:
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hoc non est positum in nostra actione.",
+                datetime: "12th Jan, 2021 7:05 pm",
+              },
+              {
+                message:
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hoc non est positum in nostra actione.",
+                datetime: "12th Jan, 2021 7:05 pm",
+              },
+            ]}
+          />
         )
       ) : (
         <NoContactView desc={desc} type={type} />
