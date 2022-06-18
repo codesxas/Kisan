@@ -6,7 +6,7 @@ import { errorHandler } from "./error.helper";
 
 import { contact } from "../modules/contacts/modules";
 import { history } from "../modules/history/modules";
-import { ContactController } from "../modules/common/controllers/contact.controller";
+import { ContactController } from "../modules/contacts/controllers/contact.controller";
 
 class App {
   app: Express;

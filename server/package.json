@@ -1,17 +1,18 @@
 {
-  "name": "backend",
+  "name": "server",
   "version": "1.0.0",
   "description": "Backend created for Kisan Network",
-  "main": "dist/main.js",
+  "main": "index.js",
   "scripts": {
-    "prebuild": "rimraf dist",
-    "build": "tsc",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node .",
     "start:dev": "nodemon --config nodemon.json",
     "start:dev:db": "./src/scripts/start-db.sh",
-    "publishToHeroku": "cd ../ && git subtree push --prefix server heroku master || true"
+    "publishToHeroku": "cd ../ && git subtree push --prefix server heroku master || true",
+
+    "pretypeorm": "(rm ormconfig.json || :) && ts-node -r tsconfig-paths/register ./src/scripts/write-type-orm-config.ts",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "typeorm:migration:generate": "npm run typeorm -- migration:generate -n",
+    "typeorm:migration:run": "npm run typeorm -- migration:run",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Codesxas",
   "license": "ISC",
@@ -28,6 +29,7 @@
     "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
     "ts-node": "^10.8.1",
-    "typescript": "^4.7.3"
+    "tsconfig-paths": "^4.0.0",
+    "typescript": "^4.7.4"
   }
 }

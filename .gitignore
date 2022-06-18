@@ -6,5 +6,7 @@
 */.env
 */ormconfig.json
 
-/serverjkjshf
+/serverjkjshf/
 .vscode/
+.gitignore
+.DS_Store

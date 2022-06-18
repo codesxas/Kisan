@@ -5,10 +5,7 @@ import { BaseEntity } from "../../common/entities";
 @Entity({ name: "contact" })
 export class Contact extends BaseEntity {
   @Column({ type: "varchar", length: 50 })
-  public first_name: string;
-
-  @Column({ type: "varchar", length: 50 })
-  public last_name: string;
+  public name: string;
 
   @Column({ type: "varchar", length: 3 })
   public areaCode: number;
