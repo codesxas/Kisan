@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../redux/contacts/actions";
@@ -8,6 +9,7 @@ import ItemList from "../components/common/list/ItemList";
 import View from "../components/contact/ContactView";
 
 function Contact() {
+  let navigate = useNavigate();
   let dispatch = useDispatch();
   const { loadingItems, contacts } = useSelector(
     (state: any) => state.PostReducer
@@ -44,6 +46,10 @@ function Contact() {
   const handleContactChange = (index: number) => {
     const selectedContact = contacts[index];
     setActiveContact(selectedContact);
+
+    if (window.innerWidth < 768) {
+      navigate(`/mobile/contact/${selectedContact.id}`)
+    }
   };
 
   const handleContactSearch = (e: React.ChangeEvent<HTMLInputElement>) => {

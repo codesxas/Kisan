@@ -6,9 +6,16 @@ type Props = {
   handleClose: any;
   message: string;
   handleChange: any;
+  error: boolean;
 };
 
-function SendMessage({ show, handleClose, message, handleChange }: Props) {
+function SendMessage({
+  show,
+  handleClose,
+  message,
+  handleChange,
+  error,
+}: Props) {
   return (
     <Modal className="send-message" show={show} onHide={handleClose} centered>
       <Modal.Header closeButton>
@@ -22,6 +29,7 @@ function SendMessage({ show, handleClose, message, handleChange }: Props) {
             value={message}
             onChange={handleChange}
           />
+          {error && <span className="error">Please enter correct OTP</span>}
         </div>
       </Modal.Body>
       <Modal.Footer>

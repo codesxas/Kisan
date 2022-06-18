@@ -112,6 +112,7 @@ function ContactDetails({ activeContactID }: Props) {
             handleChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setMessage(e.target.value)
             }
+            error={error}
           />
         </React.Fragment>
       )}
