@@ -62,7 +62,7 @@
         max-width: 80rem;
         margin: 0 auto;
       }
-      .info-wrap p{
+      .info-wrap p {
         font-family: $ff-alt-beta;
         margin: 0 auto;
         margin-top: -5rem;
@@ -70,6 +70,78 @@
         color: $clr-gray;
         font-size: $fs-h2;
       }
+    }
+  }
+}
+
+.not-found {
+  height: 100vh;
+  text-align: center;
+
+  .img-wrap {
+    max-width: 80rem;
+    margin: 0 auto;
+    margin-bottom: -5rem;
+
+    @media only screen and (max-width: $media-sm) {
+      margin-bottom: 0;
+    }
+  }
+  .info-wrap p {
+    font-family: $ff-alt-beta;
+    width: 100%;
+    color: $clr-gray;
+    font-size: $fs-h2;
+
+    @media only screen and (max-width: $media-sm) {
+      font-size: $fs-h4;
+    }
+
+    a {
+      color: $clr-primary;
+      font-weight: bold;
+    }
+  }
+}
+
+.send-message {
+  .modal-content {
+    border: none;
+    border-radius: 1rem;
+  }
+
+  .modal-header {
+    padding: 2rem;
+  }
+
+  .modal-body {
+    padding: 4rem 2rem;
+    font-size: $fs-milli;
+
+    textarea {
+      margin-top: 2rem;
+      padding: 1rem;
+      height: 8rem;
+      width: 100%;
+      border: none;
+      background-color: $clr-secondary-dk;
+      border-radius: 1rem;
+    }
+  }
+
+  .modal-footer {
+    border: none;
+    justify-content: center;
+    padding-bottom: 2rem;
+
+    button.send {
+      background-color: $clr-primary;
+      border: none;
+      outline: none;
+      color: $clr-ntrl-min;
+      padding: 0.7rem 8rem;
+      border-radius: 0.5rem;
+      font-size: $fs-milli;
     }
   }
 }

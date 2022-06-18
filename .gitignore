@@ -4,3 +4,7 @@
 
 # scripts
 */.env
+*/ormconfig.json
+
+/serverjkjshf
+.vscode/

@@ -4,19 +4,19 @@ import ContactDetails from "./ContactDetails";
 import NoContactView from "./NoContactView";
 
 type Props = {
-  activeContact: object;
+  activeContactID: string;
   contactType: string | null;
   noContactData: any | null;
 };
 
-function View({ activeContact, contactType, noContactData }: Props) {
+function View({ activeContactID, contactType, noContactData }: Props) {
   const { desc, type } = noContactData;
 
   return (
     <div className="contact-view">
-      {Object.keys(activeContact).length ? (
+      {activeContactID ? (
         contactType === "contact" ? (
-          <ContactDetails />
+          <ContactDetails activeContactID={activeContactID}  />
         ) : (
           <MessageHistory />
         )

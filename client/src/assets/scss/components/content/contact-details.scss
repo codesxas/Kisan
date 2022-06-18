@@ -1,11 +1,28 @@
 .contact-details {
   margin: 0 20rem;
+  overflow: scroll;
+  height: 100vh;
+
+  @media only screen and (max-width: $media-lg) {
+    margin: 0 10rem;
+  }
+  @media only screen and (max-width: $media-md) {
+    margin: 0 1rem;
+    margin-right: 2rem;
+  }
+  @media only screen and (max-width: $media-md) {
+    margin-right: 1rem;
+  }
 
   .header {
     display: flex;
     justify-content: space-between;
     padding: 10rem 0 2rem;
     border-bottom: 1px solid $clr-secondary;
+
+    @media only screen and (max-width: $media-md) {
+      align-items: center;
+    }
 
     .img-wrap {
       height: 10rem;
@@ -14,6 +31,18 @@
       position: relative;
       margin-left: 15rem;
       text-align: right;
+
+      @media only screen and (max-width: $media-lg) {
+        height: 8rem;
+        width: 8rem;
+        margin-left: 5rem;
+      }
+      @media only screen and (max-width: $media-md) {
+        margin-left: 2rem;
+      }
+      @media only screen and (max-width: $media-xs) {
+        margin-left: 0;
+      }
 
       .contact-img {
         position: absolute;
@@ -29,14 +58,25 @@
       text-align: left;
       width: 55%;
 
+      @media only screen and (max-width: $media-lg) {
+        width: 70%;
+      }
+
       .contact-name {
         font-size: $fs-h2;
         font-weight: 500;
         margin: 0;
+
+        @media only screen and (max-width: $media-lg) {
+          font-size: $fs-h3;
+        }
       }
       .contact-desc {
         font-size: $fs-milli;
         color: $clr-gray;
+        @media only screen and (max-width: $media-lg) {
+          font-size: $fs-micro;
+        }
       }
       .act-btn {
         .chat-btn {
@@ -72,12 +112,19 @@
           color: $clr-gray;
           text-align: right;
           width: 40%;
+          @media only screen and (max-width: $media-lg) {
+            width: 22%;
+          }
         }
         .item-desc {
           font-size: $fs-micro;
           color: $clr-black;
           text-align: left;
           width: 55%;
+
+          @media only screen and (max-width: $media-lg) {
+            width: 70%;
+          }
         }
       }
     }

@@ -33,7 +33,7 @@ class ConfigService {
       user: this.getValue("POSTGRES_USER"),
       database: this.getValue("POSTGRES_DATABASE"),
       password: this.getValue("POSTGRES_PASSWORD"),
-    }
+    };
   }
 
   public getConfigData() {

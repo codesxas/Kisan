@@ -1,59 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
+import * as actions from "../../redux/contacts/actions";
+
 import Header from "../components/common/header/Header";
 import ItemList from "../components/common/list/ItemList";
 import View from "../components/contact/ContactView";
 
-const data = [
-  {
-    contact_name: "Dann Petty",
-    desc: "Sr. Product Manager",
-  },
-  {
-    contact_name: "Robert Frankestien",
-    desc: "Marketing Lead",
-  },
-  {
-    contact_name: "Jeromy Irons",
-    desc: "Consultant",
-  },
-  {
-    contact_name: "Jeromy Irons",
-    desc: "Consultant",
-  },
-  {
-    contact_name: "Jeromy Irons",
-    desc: "Consultant",
-  },
-  {
-    contact_name: "Jeromy Irons",
-    desc: "Consultant",
-  },
-  {
-    contact_name: "Jeromy Irons",
-    desc: "Consultant",
-  },
-  {
-    contact_name: "Jeromy Irons",
-    desc: "Consultant",
-  },
-  {
-    contact_name: "Jeromy Irons",
-    desc: "Consultant",
-  },
-];
-
 function Contact() {
-  const [activeContact, setActiveContact] = useState({});
-  const [searchContact, setSearchContact] = useState("");
-  const [contactData, setContactData] = useState(data);
+  let dispatch = useDispatch();
+  const { loadingItems, contacts } = useSelector(
+    (state: any) => state.PostReducer
+  );
 
-  const color = ["primary", "orange", "teal", "pink", "green", "gray"];
-  const randomBackgroundGenerator = () => {
-    return color[Math.floor(Math.random() * color.length)];
+  const [activeContact, setActiveContact] = useState<any | null>(null);
+  const [searchContact, setSearchContact] = useState("");
+  const [contactData, setContactData] = useState(contacts);
+
+  useEffect(() => {
+    handleGetContactItems();
+  }, []);
+
+  useEffect(() => {
+    setContactData(contacts);
+  }, [contacts]);
+
+  const handleGetContactItems = (page = 1, take = 10) => {
+    dispatch(actions.getContactItems({ page, take }));
+  };
+
+  const randomBackgroundGenerator = (index: number) => {
+    if (!contacts[index].bgColor) {
+      const color = ["primary", "orange", "teal", "pink", "green", "gray"];
+
+      const selectedColor = color[Math.floor(Math.random() * color.length)];
+      contacts[index].bgColor = selectedColor;
+
+      return selectedColor;
+    }
+    return contacts[index].bgColor;
   };
 
   const handleContactChange = (index: number) => {
-    const selectedContact = contactData[index];
+    const selectedContact = contacts[index];
     setActiveContact(selectedContact);
   };
 
@@ -62,8 +51,8 @@ function Contact() {
     const searchValue = e.target.value;
     setSearchContact(searchValue);
 
-    const searchResult = data.filter((item) =>
-      item.contact_name.toLowerCase().includes(searchValue.toLowerCase())
+    const searchResult = contacts.filter((item: any) =>
+      item.name.toLowerCase().includes(searchValue.toLowerCase())
     );
 
     setContactData(searchResult);
@@ -71,37 +60,45 @@ function Contact() {
 
   return (
     <div className="row">
-      <div className="section col-md-3">
-        <Header
-          title="Contact Book"
-          numOfContacts={contactData.length}
-          searchContact={searchContact}
-          handleContactSearch={handleContactSearch}
-        />
+      {!loadingItems ? (
+        <React.Fragment>
+          <div className="section col-md-3">
+            <Header
+              title="Contact Book"
+              numOfContacts={contactData.length}
+              searchContact={searchContact}
+              handleContactSearch={handleContactSearch}
+            />
 
-        <div className="contact-list">
-          {contactData.map((item, index) => (
-            <React.Fragment key={index}>
-              <ItemList
-                {...item}
-                bgColor={randomBackgroundGenerator()}
-                handleContactChange={handleContactChange}
-                index={index}
-              />
-            </React.Fragment>
-          ))}
-        </div>
-      </div>
-      <div className="section col-md-9">
-        <View
-          activeContact={activeContact}
-          contactType="contact"
-          noContactData={{
-            desc: "Please select any contact to view their details",
-            type: "contact_not_selected",
-          }}
-        />
-      </div>
+            <div className="contact-list">
+              {contactData.map((item: any, index: number) => (
+                <React.Fragment key={index}>
+                  <ItemList
+                    contact_name={item.name}
+                    desc={item.organization}
+                    bgColor={randomBackgroundGenerator(index)}
+                    handleContactChange={handleContactChange}
+                    index={index}
+                  />
+                </React.Fragment>
+              ))}
+            </div>
+          </div>
+
+          <div className="section col-md-9">
+            <View
+              activeContactID={activeContact ? activeContact.id : ""}
+              contactType="contact"
+              noContactData={{
+                desc: "Please select any contact to view their details",
+                type: "contact_not_selected",
+              }}
+            />
+          </div>
+        </React.Fragment>
+      ) : (
+        <div>Loading</div>
+      )}
     </div>
   );
 }

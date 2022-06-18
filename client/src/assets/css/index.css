@@ -1,4 +1,4 @@
-/* primary brand color - skyblue - with shades and tints via Sass functions */
+/* screen sizes */ /* primary brand color - skyblue - with shades and tints via Sass functions */
 /* secondary brand color - hotpink - with shades and tints via Sass functions */
 /* neutrals */
 /* color */
@@ -8,7 +8,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;400;500;600;700;800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Jost&display=swap");
 .bg-primary {
-  background-color: #3dada5 !important;
+  background-color: #409CB5 !important;
 }
 
 .bg-orange {
@@ -171,14 +171,102 @@
   font-size: 3.2rem;
 }
 
+.not-found {
+  height: 100vh;
+  text-align: center;
+}
+.not-found .img-wrap {
+  max-width: 80rem;
+  margin: 0 auto;
+  margin-bottom: -5rem;
+}
+@media only screen and (max-width: 480px) {
+  .not-found .img-wrap {
+    margin-bottom: 0;
+  }
+}
+.not-found .info-wrap p {
+  font-family: "Jost", sans-serif;
+  width: 100%;
+  color: #a1a1a1;
+  font-size: 3.2rem;
+}
+@media only screen and (max-width: 480px) {
+  .not-found .info-wrap p {
+    font-size: 2.4rem;
+  }
+}
+.not-found .info-wrap p a {
+  color: #409CB5;
+  font-weight: bold;
+}
+
+.send-message .modal-content {
+  border: none;
+  border-radius: 1rem;
+}
+.send-message .modal-header {
+  padding: 2rem;
+}
+.send-message .modal-body {
+  padding: 4rem 2rem;
+  font-size: 1.4rem;
+}
+.send-message .modal-body textarea {
+  margin-top: 2rem;
+  padding: 1rem;
+  height: 8rem;
+  width: 100%;
+  border: none;
+  background-color: #e3e7e5;
+  border-radius: 1rem;
+}
+.send-message .modal-footer {
+  border: none;
+  justify-content: center;
+  padding-bottom: 2rem;
+}
+.send-message .modal-footer button.send {
+  background-color: #409CB5;
+  border: none;
+  outline: none;
+  color: #fff;
+  padding: 0.7rem 8rem;
+  border-radius: 0.5rem;
+  font-size: 1.4rem;
+}
+
 .contact-details {
   margin: 0 20rem;
+  overflow: scroll;
+  height: 100vh;
+}
+@media only screen and (max-width: 1024px) {
+  .contact-details {
+    margin: 0 10rem;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .contact-details {
+    margin: 0 1rem;
+    margin-right: 2rem;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .contact-details {
+    margin-right: 1rem;
+  }
 }
 .contact-details .header {
   display: flex;
   justify-content: space-between;
   padding: 10rem 0 2rem;
   border-bottom: 1px solid #f1f3f2;
+}
+@media only screen and (max-width: 768px) {
+  .contact-details .header {
+    align-items: center;
+  }
 }
 .contact-details .header .img-wrap {
   height: 10rem;
@@ -187,6 +275,23 @@
   position: relative;
   margin-left: 15rem;
   text-align: right;
+}
+@media only screen and (max-width: 1024px) {
+  .contact-details .header .img-wrap {
+    height: 8rem;
+    width: 8rem;
+    margin-left: 5rem;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .contact-details .header .img-wrap {
+    margin-left: 2rem;
+  }
+}
+@media only screen and (max-width: 320px) {
+  .contact-details .header .img-wrap {
+    margin-left: 0;
+  }
 }
 .contact-details .header .img-wrap .contact-img {
   position: absolute;
@@ -200,19 +305,34 @@
   text-align: left;
   width: 55%;
 }
+@media only screen and (max-width: 1024px) {
+  .contact-details .header .info-wrap {
+    width: 70%;
+  }
+}
 .contact-details .header .info-wrap .contact-name {
   font-size: 3.2rem;
   font-weight: 500;
   margin: 0;
 }
+@media only screen and (max-width: 1024px) {
+  .contact-details .header .info-wrap .contact-name {
+    font-size: 2.8rem;
+  }
+}
 .contact-details .header .info-wrap .contact-desc {
   font-size: 1.4rem;
   color: #a1a1a1;
 }
+@media only screen and (max-width: 1024px) {
+  .contact-details .header .info-wrap .contact-desc {
+    font-size: 1.2rem;
+  }
+}
 .contact-details .header .info-wrap .act-btn .chat-btn {
   border: none;
   outline: none;
-  background-color: #3dada5;
+  background-color: #409CB5;
   color: #fff;
   padding: 0.7rem 1.5rem;
   border-radius: 0.5rem;
@@ -237,11 +357,21 @@
   text-align: right;
   width: 40%;
 }
+@media only screen and (max-width: 1024px) {
+  .contact-details .desc-list .desc-item .info-wrap .item-title {
+    width: 22%;
+  }
+}
 .contact-details .desc-list .desc-item .info-wrap .item-desc {
   font-size: 1.2rem;
   color: #2b2a29;
   text-align: left;
   width: 55%;
+}
+@media only screen and (max-width: 1024px) {
+  .contact-details .desc-list .desc-item .info-wrap .item-desc {
+    width: 70%;
+  }
 }
 .contact-details .contact-history-list .contact-history-title {
   text-align: left;
@@ -300,6 +430,8 @@
   align-items: center;
   background-color: #f6f8f7;
   padding: 2rem;
+  position: fixed;
+  width: 110%;
 }
 .message-history .header .img-wrap {
   height: 4rem;
@@ -324,6 +456,11 @@
   color: #a1a1a1;
   margin: 0;
 }
+.message-history .chat-window {
+  padding-top: 8rem;
+  overflow: scroll;
+  height: 100vh;
+}
 .message-history .chat-window .chat-history-list {
   display: flex;
   align-items: flex-end;
@@ -339,13 +476,28 @@
   margin-top: 1.5rem;
   color: #fff;
 }
+@media only screen and (max-width: 768px) {
+  .message-history .chat-window .chat-history-item {
+    width: 70%;
+  }
+}
 .message-history .chat-window .chat-history-item .contact-name {
   text-align: right;
   font-size: 1.6rem;
   font-weight: 500;
 }
+@media only screen and (max-width: 768px) {
+  .message-history .chat-window .chat-history-item .contact-name {
+    font-size: 1.4rem;
+  }
+}
 .message-history .chat-window .chat-history-item .chat-content {
   font-size: 1.4rem;
+}
+@media only screen and (max-width: 768px) {
+  .message-history .chat-window .chat-history-item .chat-content {
+    font-size: 1.2rem;
+  }
 }
 .message-history .chat-window .chat-history-item span {
   font-size: 1.2rem;

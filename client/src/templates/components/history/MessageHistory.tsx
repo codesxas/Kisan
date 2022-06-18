@@ -1,6 +1,18 @@
 import React from "react";
 
-function MessageHistory() {
+type Props = {
+  contact_name: string;
+  message_list: List;
+};
+
+type List = [
+  {
+    message: string;
+    datetime: string;
+  }
+];
+
+function MessageHistory({ contact_name, message_list }: Props) {
   return (
     <div className="message-history">
       <div className="header">
@@ -9,38 +21,20 @@ function MessageHistory() {
         </div>
 
         <div className="info-wrap">
-          <p className="contact-name">Fabio Basile</p>
+          <p className="contact-name">{contact_name}</p>
         </div>
       </div>
 
       <div className="chat-window">
         <div className="chat-history-list">
-          <div className="chat-history-item">
-            <p className="contact-name">Fabio Basile</p>
-            <p className="chat-content">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hoc non
-              est positum in nostra actione.
-            </p>
-            <span>12th Jan, 2021 7:05 pm</span>
-          </div>
+          {message_list.map((item, index) => (
+            <div className="chat-history-item" key={index}>
+              <p className="contact-name">Me</p>
+              <p className="chat-content">{item.message}</p>
 
-          <div className="chat-history-item">
-            <p className="contact-name">Fabio Basile</p>
-            <p className="chat-content">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hoc non
-              est positum in nostra actione.
-            </p>
-            <span>12th Jan, 2021 7:05 pm</span>
-          </div>
-
-          <div className="chat-history-item">
-            <p className="contact-name">Fabio Basile</p>
-            <p className="chat-content">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hoc non
-              est positum in nostra actione.
-            </p>
-            <span>12th Jan, 2021 7:05 pm</span>
-          </div>
+              <span>{item.datetime}</span>
+            </div>
+          ))}
         </div>
       </div>
     </div>
