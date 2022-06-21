@@ -11,39 +11,63 @@ export class HistoryService {
   }
 
   public async postMessage(req: Request, res: Response, next: NextFunction) {
-    const { message } = req.body;
+    const { message, phoneNumber } = req.body;
+
+    if (!message || !phoneNumber) return { error: { message: "Invalid Data" } };
+    
     const receivedDate = new Date();
+    const getContact = await this.pool.query(
+      "SELECT * FROM contact WHERE phone_number = $1",
+      [phoneNumber]
+    );
+    const contactId = await getContact.rows[0].id;
 
     const newMessage = await this.pool.query(
-      "INSERT INTO history(message, received_date) VALUES($1, $2) RETURNING *",
-      [message, receivedDate]
+      "INSERT INTO messages(message, received_date, sent_to) VALUES($1, $2, $3) RETURNING *",
+      [message, receivedDate, contactId]
     );
+
+    const areaCode = getContact.rows[0].area_code;
 
     const sendSMS = await this.client.messages.create({
       body: message,
       from: "+18578472653",
-      to: "+917082537506",
+      to: areaCode + phoneNumber,
     });
 
-    res.json({
+    return {
       data: newMessage.rows[0],
       message: "Message Successfully sent!",
-    });
+    };
   }
 
   public async getHistoryList(req: Request, res: Response, next: NextFunction) {
-    const allMessages = await this.pool.query("SELECT * FROM history");
+    const allMessages = await this.pool.query("SELECT * FROM messages");
 
-    res.json(allMessages.rows);
+    return allMessages.rows;
   }
 
   public async getMessage(req: Request, res: Response, next: NextFunction) {
     const { id } = req.params;
     const message = await this.pool.query(
-      "SELECT * FROM history WHERE id = $1",
+      "SELECT * FROM messages WHERE id = $1",
       [id]
     );
 
-    res.json(message.rows[0]);
+    return message.rows[0];
+  }
+
+  public async getContactHistory(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    const { id } = req.params;
+    const message = await this.pool.query(
+      "SELECT * FROM messages WHERE sent_to = $1",
+      [id]
+    );
+
+    return message.rows;
   }
 }

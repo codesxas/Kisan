@@ -11,23 +11,29 @@ export class HistoryController {
 
     /* following code is to handle http://localhost:3000/history request. */
     this.router
-      .post("/history", this.postMessage)
-      .get("/history", this.getHistoryList)
-      .get("/history/:id", this.getMessage);
+      .post("/message", this.postMessage)
+      .get("/message", this.getHistoryList)
+      .get("/message/:id", this.getMessage)
+      .get("/history/:id", this.getContactHistory);
   }
 
   // post a message
   public async postMessage(req, res, next) {
-    service.postMessage(req, res, next);
+    res.json(await service.postMessage(req, res, next));
   }
 
   // get all message (msg-history)
   public async getHistoryList(req, res, next) {
-    service.getHistoryList(req, res, next);
+    res.json(await service.getHistoryList(req, res, next));
   }
 
-   // get a message based upon the id
-   public async getMessage(req, res, next) {
-    service.getMessage(req, res, next);
+  // get a message based upon the id
+  public async getMessage(req, res, next) {
+    res.json(await service.getMessage(req, res, next));
+  }
+
+  // get a message based upon the id
+  public async getContactHistory(req, res, next) {
+    res.json(await service.getContactHistory(req, res, next));
   }
 }

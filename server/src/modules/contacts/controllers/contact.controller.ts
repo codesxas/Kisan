@@ -17,17 +17,17 @@ export class ContactController {
   }
 
   // post a contact
-  public postContact(req, res, next) {
-    service.postContact(req, res, next);
+  public async postContact(req, res, next) {
+    res.json(await service.postContact(req, res, next));
   }
 
   // get all contacts
   public async getContactList(req, res, next) {
-    service.getContactList(req, res, next);
+    res.json(await service.getContactList(req, res, next));
   }
 
   // get a contacts based upon their ids
   public async getContact(req, res, next) {
-    service.getContact(req, res, next);
+    res.json(await service.getContact(req, res, next));
   }
 }
