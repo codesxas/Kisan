@@ -1,5 +1,5 @@
-import { BaseEntity } from "../entities/base.entity";
+// import { BaseEntity } from "../entities/base.entity";
 
-export const common = {
-  entities: BaseEntity,
-};
+// export const common = {
+//   entities: BaseEntity,
+// };

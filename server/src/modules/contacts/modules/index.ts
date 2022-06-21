@@ -1,5 +1,5 @@
-import { Contact } from "../entities";
+// import { Contact } from "../entities";
 
-export const contact = {
-  entities: [Contact],
-};
+// export const contact = {
+//   entities: [Contact],
+// };

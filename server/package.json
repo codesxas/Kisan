@@ -2,8 +2,12 @@
   "name": "server",
   "version": "1.0.0",
   "description": "Backend created for Kisan Network",
-  "main": "index.js",
+  "main": "dist/main.js",
   "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "tsc",
+    "start": "node .",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start:dev": "nodemon --config nodemon.json",
     "start:dev:db": "./src/scripts/start-db.sh",
     "publishToHeroku": "cd ../ && git subtree push --prefix server heroku master || true",

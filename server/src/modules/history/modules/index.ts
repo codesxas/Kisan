@@ -1,5 +1,5 @@
-import { History } from "../entities";
+// import { History } from "../entities";
 
-export const history = {
-  entities: [History],
-};
+// export const history = {
+//   entities: [History],
+// };

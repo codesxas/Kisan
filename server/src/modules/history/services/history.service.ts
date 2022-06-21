@@ -14,7 +14,7 @@ export class HistoryService {
     const { message, phoneNumber } = req.body;
 
     if (!message || !phoneNumber) return { error: { message: "Invalid Data" } };
-    
+
     const receivedDate = new Date();
     const getContact = await this.pool.query(
       "SELECT * FROM contact WHERE phone_number = $1",
