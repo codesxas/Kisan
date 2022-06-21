@@ -41,6 +41,7 @@ class ConfigService {
       host: this.getValue("POSTGRES_HOST"),
       port: parseInt(this.getValue("POSTGRES_PORT")),
       database: this.getValue("POSTGRES_DATABASE"),
+      ssl: this.isProduction()
     };
   }
 
