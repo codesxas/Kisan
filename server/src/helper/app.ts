@@ -78,9 +78,9 @@ class App {
     const history = new HistoryController();
     this.app.use(history.router);
 
-    this.createTestData()
-      .then((_) => console.log("...wait for script to exit"))
-      .catch((error) => console.error("seed error", error));
+    // this.createTestData()
+    //   .then((_) => console.log("...wait for script to exit"))
+    //   .catch((error) => console.error("seed error", error));
 
     return this.app;
   }
