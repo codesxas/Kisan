@@ -1,58 +1,51 @@
 import { Request, Response, NextFunction } from "express";
-import { App } from "../../../helper";
-import { Contact } from "../entities";
+import { Connection } from "../../../helper";
 
 export class ContactService {
-  connection;
+  pool;
   constructor() {
-    this.connection = new App().connection;
+    this.pool = new Connection().createConnection();
   }
 
-  public async getContactList(req: Request, res: Response, next: NextFunction) {
-    this.connection
-      .query(`SELECT * FROM public.contact`)
-      .then(async (response) => {
-        const contactList: Contact[] = await this.connection.manager.findAll();
-        res.json({
-          message: "Request successfully fetched!",
-          data: contactList,
-        });
-      })
-      .catch((error) => {
-        console.error("Error ", error);
-        res.json(error);
-        next(error);
-      });
-  }
-
-  public async postMessageDetails(
+  public async postContact(
     req: Request,
     res: Response,
     next: NextFunction
   ) {
-    const { name, phoneNumber, message, text } = req.body;
+    const { firstName, lastName, areaCode, phoneNumber, status, organization } =
+      req.body;
 
-    if (!name || !phoneNumber || !message || !text) {
-      throw { error: { message: "Add all required fields!" } };
-    }
+    if (
+      !firstName ||
+      !lastName ||
+      !areaCode ||
+      !phoneNumber ||
+      !status ||
+      !organization
+    )
+      res.json({ error: { message: "Invalid Data" } });
 
-    this.connection
-      .query(`SELECT * FROM public.contact`)
-      .then(async (response) => {
-        await response.manager.save({
-          name,
-          phoneNumber,
-          message,
-          text,
-        });
-        res.json({
-          message: "Request successfully posted!",
-        });
-      })
-      .catch((error) => {
-        console.error("Error ", error);
-        res.json(error);
-        next(error);
-      });
+    const newContact = await this.pool.query(
+      "INSERT INTO contact (first_name, last_name, area_code, phone_number, status, organization) VALUES($1, $2, $3, $4, $5, $6) RETURNING *",
+      [firstName, lastName, areaCode, phoneNumber, status, organization]
+    );
+
+    res.json(newContact.rows[0]);
+  }
+
+  public async getContactList(req: Request, res: Response, next: NextFunction) {
+    const allContacts = await this.pool.query("SELECT * FROM contact");
+
+    res.json(allContacts.rows);
+  }
+
+  public async getContact(req: Request, res: Response, next: NextFunction) {
+    const { id } = req.params;
+    const contact = await this.pool.query(
+      "SELECT * FROM contact WHERE id = $1",
+      [id]
+    );
+
+    res.json(contact.rows[0]);
   }
 }

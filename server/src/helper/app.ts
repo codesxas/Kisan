@@ -1,22 +1,15 @@
+import cors from "cors";
 import express, { Express } from "express";
-import { DataSource } from "typeorm";
 
-import { Connection } from "./connection";
 import { errorHandler } from "./error.helper";
-
-import { contact } from "../modules/contacts/modules";
-import { history } from "../modules/history/modules";
-import { ContactController } from "../modules/contacts/controllers/contact.controller";
+import { ContactController } from "../modules/contacts/controllers";
+import { HistoryController } from "../modules/history/controllers";
 
 class App {
   app: Express;
-  connection: Promise<DataSource>;
 
   constructor() {
     this.app = express();
-
-    const entities = [...contact.entities, ...history.entities];
-    const connection = new Connection().createConnection(entities);
   }
 
   /* setting up parsers for JSON and URLs respectively */
@@ -29,30 +22,18 @@ class App {
     );
   }
 
-  public useBaseRoute() {
-    this.app.get("/", (req, res) => {
-      res.json({ message: "Hello World" });
-    });
-  }
-
-  /* adding routes by using their file-path */
-  public useRoutes(path: string) {
-    this.app.use(require(path));
-  }
-
   public create(): Express {
+    this.app.use(cors());
     this.useParser();
 
     /* Error handler middleware */
     this.app.use(errorHandler);
 
-    const controller = new ContactController();
-    controller.getContactList(this.app);
+    const contact = new ContactController();
+    this.app.use(contact.router);
 
-    // this.app.use(new ContactController().router);
-
-    /* Routing */
-    this.useBaseRoute();
+    const history = new HistoryController();
+    this.app.use(history.router);
 
     return this.app;
   }

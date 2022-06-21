@@ -1,27 +1,49 @@
 import { Request, Response, NextFunction } from "express";
-import { App } from "../../../helper";
-import { History } from "../entities";
+import { Connection } from "../../../helper";
 
 export class HistoryService {
-  connection;
+  pool;
+  client;
+
   constructor() {
-    this.connection = new App().connection;
+    this.pool = new Connection().createConnection();
+    this.client = new Connection().twilioConnection();
+  }
+
+  public async postMessage(req: Request, res: Response, next: NextFunction) {
+    const { message } = req.body;
+    const receivedDate = new Date();
+
+    const newMessage = await this.pool.query(
+      "INSERT INTO history(message, received_date) VALUES($1, $2) RETURNING *",
+      [message, receivedDate]
+    );
+
+    const sendSMS = await this.client.messages.create({
+      body: message,
+      from: "+18578472653",
+      to: "+917082537506",
+    });
+
+    res.json({
+      data: newMessage.rows[0],
+      message: "Message Successfully sent!",
+    });
   }
 
   public async getHistoryList(req: Request, res: Response, next: NextFunction) {
-    this.connection
-      .query(`SELECT * FROM public.history`)
-      .then(async (response) => {
-        const historyList: History[] = await response.manager.findAll();
-        res.json({
-          message: "Request successfully fetched!",
-          data: historyList,
-        });
-      })
-      .catch((error) => {
-        console.error("Error ", error);
-        res.json(error);
-        next(error);
-      });
+    const allMessages = await this.pool.query("SELECT * FROM history");
+
+    res.json(allMessages.rows);
+  }
+
+  public async getMessage(req: Request, res: Response, next: NextFunction) {
+    const { id } = req.params;
+    const message = await this.pool.query(
+      "SELECT * FROM history WHERE id = $1",
+      [id]
+    );
+
+    res.json(message.rows[0]);
   }
 }

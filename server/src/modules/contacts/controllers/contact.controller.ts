@@ -1,23 +1,33 @@
-import { Router } from "express";
+import express, { Router } from "express";
 import { ContactService } from "../services";
 
+const service: ContactService = new ContactService();
+
 export class ContactController {
-  private service: ContactService;
   public router: Router;
 
   constructor() {
-    this.service = new ContactService();
-    /* following code is to handle http://localhost:3000/contact request. */
+    this.router = express.Router();
+
+    /* following code is to handle http://{url}/contact request. */
     this.router
+      .post("/contact", this.postContact)
       .get("/contact", this.getContactList)
-      .post("/contact", this.postMessageDetails);
+      .get("/contact/:id", this.getContact);
   }
 
+  // post a contact
+  public postContact(req, res, next) {
+    service.postContact(req, res, next);
+  }
+
+  // get all contacts
   public async getContactList(req, res, next) {
-    return await this.service.getContactList(req, res, next);
+    service.getContactList(req, res, next);
   }
 
-  public async postMessageDetails(req, res, next) {
-    return await this.service.postMessageDetails(req, res, next);
+  // get a contacts based upon their ids
+  public async getContact(req, res, next) {
+    service.getContact(req, res, next);
   }
 }

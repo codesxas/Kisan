@@ -13,3 +13,13 @@ export class History extends BaseEntity {
   @ManyToOne(() => Contact, (contact) => contact.history)
   contacts: Contact;
 }
+
+/*
+create table history(
+  id uuid NOT NULL DEFAULT uuid_generate_v4(), 
+  message varchar(255),
+  receivedDate DATE NOT NULL, 
+
+  primary key(id)
+);
+*/

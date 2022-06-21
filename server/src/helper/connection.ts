@@ -1,15 +1,23 @@
-import { createConnection, ConnectionOptions } from "typeorm";
+const Pool = require("pg").Pool;
 import { configService } from "../config/config.service";
+
+const twilio = require("twilio");
 
 class Connection {
   constructor() {}
 
   /* connecting with postgres db */
-  public createConnection(entities: any) {
-    const config = { ...configService.getConfigData(), debug: true, entities };
-    const connection = createConnection(config as ConnectionOptions);
+  public createConnection() {
+    const pool = new Pool(configService.getDbConfig());
+    return pool;
+  }
 
-    return connection;
+  public twilioConnection() {
+    const accountSid = configService.getAccountSid();
+    const authToken = configService.getAuthToken();
+
+    const client = new twilio(accountSid, authToken);
+    return client;
   }
 }
 

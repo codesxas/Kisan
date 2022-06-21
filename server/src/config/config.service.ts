@@ -26,13 +26,21 @@ class ConfigService {
     return mode != "DEV";
   }
 
+  public getAccountSid() {
+    return this.getValue("TWILIO_ACCOUNT_SID", true);
+  }
+
+  public getAuthToken() {
+    return this.getValue("TWILIO_AUTH_TOKEN", true);
+  }
+
   public getDbConfig() {
     return {
+      user: this.getValue("POSTGRES_USER"),
+      password: this.getValue("POSTGRES_PASSWORD"),
       host: this.getValue("POSTGRES_HOST"),
       port: parseInt(this.getValue("POSTGRES_PORT")),
-      user: this.getValue("POSTGRES_USER"),
       database: this.getValue("POSTGRES_DATABASE"),
-      password: this.getValue("POSTGRES_PASSWORD"),
     };
   }
 
@@ -70,6 +78,8 @@ const configService = new ConfigService(process.env).ensureValues([
   "POSTGRES_PASSWORD",
   "POSTGRES_DATABASE",
   "ITEMS_PER_PAGE",
+  "TWILIO_ACCOUNT_SID",
+  "TWILIO_AUTH_TOKEN",
 ]);
 
 export { configService };
