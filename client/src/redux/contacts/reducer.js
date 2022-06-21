@@ -2,9 +2,12 @@ import * as types from "./actionTypes";
 
 const initialState = {
   contacts: [],
+  loadingContacts: false,
+
+  selectedContact: {},
+  loadingSelectedContacts: false,
   historyContact: [],
   post: {},
-  loadingItems: false,
   loadingHistoryItems: false,
   loadingPostDetails: false,
   error: {
@@ -14,43 +17,61 @@ const initialState = {
 
 const PostReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.GET_ITEMS:
-      state = { ...state, loadingItems: true };
+    case types.GET_CONTACTS:
+      state = { ...state, loadingContacts: true };
       break;
-    case types.GET_ITEM_SUCCESS:
-      state = { ...state, contacts: action.payload, loadingItems: false };
+    case types.GET_CONTACTS_SUCCESS:
+      state = { ...state, contacts: action.payload, loadingContacts: false };
       break;
-    case types.GET_ITEM_FAIL:
+    case types.GET_CONTACTS_FAIL:
       state = {
         ...state,
         error: { message: "Error" },
-        loadingItems: false,
+        loadingContacts: false,
       };
       break;
 
-    case types.POST_ITEMS:
-      state = { ...state, loadingPostDetails: true };
+    case types.GET_SELECTED_CONTACT:
+      state = { ...state, loadingSelectedContacts: true };
       break;
-    case types.POST_ITEM_SUCCESS:
-      state = { ...state, post: action.payload[0], loadingPostDetails: false };
-      break;
-    case types.POST_ITEM_FAIL:
+    case types.GET_SELECTED_CONTACT_SUCCESS:
       state = {
         ...state,
-        error: {
-          message: "Error",
-        },
-        loadingPostDetails: false,
+        selectedContact: action.payload,
+        loadingSelectedContacts: false,
       };
       break;
-
-    case types.GET_HISTORY_ITEM_FAIL:
+    case types.GET_SELECTED_CONTACT_FAIL:
       state = {
         ...state,
         error: { message: "Error" },
-        loadingFavoriteItems: false,
+        loadingSelectedContacts: false,
       };
       break;
+
+    // case types.POST_ITEMS:
+    //   state = { ...state, loadingPostDetails: true };
+    //   break;
+    // case types.POST_ITEM_SUCCESS:
+    //   state = { ...state, post: action.payload[0], loadingPostDetails: false };
+    //   break;
+    // case types.POST_ITEM_FAIL:
+    //   state = {
+    //     ...state,
+    //     error: {
+    //       message: "Error",
+    //     },
+    //     loadingPostDetails: false,
+    //   };
+    //   break;
+
+    // case types.GET_HISTORY_ITEM_FAIL:
+    //   state = {
+    //     ...state,
+    //     error: { message: "Error" },
+    //     loadingFavoriteItems: false,
+    //   };
+    //   break;
 
     default:
       state = { ...state };

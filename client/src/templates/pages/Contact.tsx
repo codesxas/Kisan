@@ -11,7 +11,7 @@ import View from "../components/contact/ContactView";
 function Contact() {
   let navigate = useNavigate();
   let dispatch = useDispatch();
-  const { loadingItems, contacts } = useSelector(
+  const { loadingContacts, contacts } = useSelector(
     (state: any) => state.PostReducer
   );
 
@@ -27,8 +27,8 @@ function Contact() {
     setContactData(contacts);
   }, [contacts]);
 
-  const handleGetContactItems = (page = 1, take = 10) => {
-    dispatch(actions.getContactItems({ page, take }));
+  const handleGetContactItems = () => {
+    dispatch(actions.getContact());
   };
 
   const randomBackgroundGenerator = (index: number) => {
@@ -48,7 +48,7 @@ function Contact() {
     setActiveContact(selectedContact);
 
     if (window.innerWidth < 768) {
-      navigate(`/mobile/contact/${selectedContact.id}`)
+      navigate(`/mobile/contact/${selectedContact.id}`);
     }
   };
 
@@ -57,8 +57,10 @@ function Contact() {
     const searchValue = e.target.value;
     setSearchContact(searchValue);
 
-    const searchResult = contacts.filter((item: any) =>
-      item.name.toLowerCase().includes(searchValue.toLowerCase())
+    const searchResult = contacts.filter(
+      (item: any) =>
+        item.first_name.toLowerCase().includes(searchValue.toLowerCase()) ||
+        item.last_name.toLowerCase().includes(searchValue.toLowerCase())
     );
 
     setContactData(searchResult);
@@ -66,7 +68,7 @@ function Contact() {
 
   return (
     <div className="row">
-      {!loadingItems ? (
+      {!loadingContacts ? (
         <React.Fragment>
           <div className="section col-md-3">
             <Header
@@ -80,8 +82,7 @@ function Contact() {
               {contactData.map((item: any, index: number) => (
                 <React.Fragment key={index}>
                   <ItemList
-                    contact_name={item.name}
-                    desc={item.organization}
+                    contact_details={{ ...item }}
                     bgColor={randomBackgroundGenerator(index)}
                     handleContactChange={handleContactChange}
                     index={index}

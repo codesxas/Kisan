@@ -18,6 +18,8 @@ axiosApi.interceptors.response.use(
 );
 
 export async function get(url, config) {
+  if (config.config && config.config.id) url = url + "/" + config.config.id;
+
   return await axiosApi
     .get(url, {
       ...config,

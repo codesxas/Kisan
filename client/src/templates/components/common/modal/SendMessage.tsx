@@ -2,22 +2,25 @@ import React from "react";
 import { Modal } from "react-bootstrap";
 
 type Props = {
-  show: boolean;
-  handleClose: any;
-  message: string;
+  state: State;
+  handleSave: any;
   handleChange: any;
+};
+
+type State = {
+  showModal: boolean;
+  message: string;
   error: boolean;
 };
 
-function SendMessage({
-  show,
-  handleClose,
-  message,
-  handleChange,
-  error,
-}: Props) {
+function SendMessage({ state, handleSave, handleChange }: Props) {
   return (
-    <Modal className="send-message" show={show} onHide={handleClose} centered>
+    <Modal
+      className="send-message"
+      show={state.showModal}
+      onHide={() => handleChange("showModal", false)}
+      centered
+    >
       <Modal.Header closeButton>
         <Modal.Title>Send Message</Modal.Title>
       </Modal.Header>
@@ -26,14 +29,16 @@ function SendMessage({
         <div className="form-group">
           <textarea
             placeholder="Hi. Your OTP is: 123456"
-            value={message}
-            onChange={handleChange}
+            value={state.message}
+            onChange={(e) => handleChange("message", e.target.value)}
           />
-          {error && <span className="error">Please enter correct OTP</span>}
+          {state.error && (
+            <span className="error">Please enter correct OTP</span>
+          )}
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <button className="send" onClick={() => handleClose(true)}>
+        <button className="send" onClick={handleSave}>
           Send
         </button>
       </Modal.Footer>

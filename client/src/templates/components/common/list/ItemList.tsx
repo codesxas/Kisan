@@ -1,16 +1,15 @@
 import React from "react";
 
 type Props = {
-  contact_name: string;
-  desc: string;
+  contact_details: any;
   index: number;
   bgColor: string;
   handleContactChange: Function;
 };
 
 function ItemList(props: Props) {
-  const { contact_name, desc, index, bgColor, handleContactChange } = props;
-  const contact_img = contact_name[0];
+  const { contact_details, index, bgColor, handleContactChange } = props;
+  const contact_img = contact_details.first_name[0];
 
   return (
     <div className="list-item" onClick={() => handleContactChange(index)}>
@@ -19,8 +18,10 @@ function ItemList(props: Props) {
       </div>
 
       <div className="info-wrap">
-        <div className="contact-name">{contact_name}</div>
-        <div className="contact-desc">{desc}</div>
+        <div className="contact-name">
+          {contact_details.first_name} {contact_details.last_name}
+          <div className="contact-desc">{contact_details.organization}</div>
+        </div>
       </div>
     </div>
   );

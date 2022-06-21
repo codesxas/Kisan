@@ -1,59 +1,84 @@
+// dependencies
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-
 import { AiFillMessage } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
+
+// components
 import ItemList from "../common/list/ItemList";
 import SendMessage from "../common/modal/SendMessage";
 
+// redux
+import * as actions from "../../../redux/contacts/actions";
+
+// types
 type Props = {
   activeContactID: string;
 };
 
+type State = {
+  showModal: boolean;
+  message: string;
+  error: boolean;
+};
+
 function ContactDetails({ activeContactID }: Props) {
-  const { contacts } = useSelector((state: any) => state.PostReducer);
-  const [contactDetails, setcontactDetails] = useState<any | null>(null);
-  const [showModal, setShowModal] = useState(false);
-  const [message, setMessage] = useState("Hi. Your OTP is: 123456");
-  const [error, setError] = useState(false);
+  let dispatch = useDispatch();
+
+  const [state, setState] = useState({
+    showModal: false,
+    message: "Hi. Your OTP is: 123456",
+    error: false,
+  });
 
   useEffect(() => {
-    const activeContact = contacts.filter(
-      (item: any) => item.id === activeContactID
-    );
-
-    setcontactDetails(activeContact[0]);
+    handleGetContact();
   }, [activeContactID]);
 
-  const handleClose = (flag: false) => {
-    if (flag) {
-      const regex = new RegExp(/ \b[0-9]{6}\b /g);
-      const result = regex.test(message);
+  const { loadingSelectedContacts, selectedContact } = useSelector(
+    (state: any) => state.PostReducer
+  );
 
-      setError(result);
+  const handleGetContact = () => {
+    dispatch(actions.getSelectedContact({ id: activeContactID }));
+  };
 
-      if (result) {
-        
-      }
-    }
-    setShowModal(false);
+  const handleChange = (check: string, value: any) => {
+    setState((prevState: State) => ({
+      ...prevState,
+      [check]: value,
+    }));
+  };
+
+  const handleSave = () => {
+    const regex = new RegExp(/\b[0-9]{6}\b/g);
+    const result = regex.test(state.message);
+
+
+    handleChange("error", !result);
+    handleChange("showModal", !result);
   };
 
   return (
     <div className="contact-details">
-      {contactDetails !== null && (
+      {Object.keys(selectedContact).length && (
         <React.Fragment>
           <div className="header">
             <div className="img-wrap bg-teal">
-              <div className="contact-img">P</div>
+              <div className="contact-img">{selectedContact.first_name[0]}</div>
             </div>
             <div className="info-wrap">
               <div className="info-text">
-                <p className="contact-name">{contactDetails.name}</p>
-                <p className="contact-desc">{contactDetails.organization}</p>
+                <p className="contact-name">
+                  {selectedContact.first_name} {selectedContact.last_name}
+                </p>
+                <p className="contact-desc">{selectedContact.organization}</p>
               </div>
 
               <div className="act-btn">
-                <button className="chat-btn" onClick={() => setShowModal(true)}>
+                <button
+                  className="chat-btn"
+                  onClick={() => handleChange("showModal", true)}
+                >
                   <AiFillMessage />
                   Chat
                 </button>
@@ -66,7 +91,7 @@ function ContactDetails({ activeContactID }: Props) {
               <div className="info-wrap">
                 <p className="item-title">Status</p>
                 <p className="item-desc">
-                  {contactDetails.status}
+                  {selectedContact.status}
                   <span>
                     - Currently out of office because of important meeting with
                     clients
@@ -77,19 +102,23 @@ function ContactDetails({ activeContactID }: Props) {
             <div className="desc-item">
               <div className="info-wrap">
                 <p className="item-title">Full Name</p>
-                <p className="item-desc">Ben Cline</p>
+                <p className="item-desc">
+                  {selectedContact.first_name} {selectedContact.last_name}
+                </p>
               </div>
 
               <div className="info-wrap">
                 <p className="item-title">Contact</p>
-                <p className="item-desc">+91 {contactDetails.phoneNumber}</p>
+                <p className="item-desc">
+                  {selectedContact.area_code} {selectedContact.phone_number}
+                </p>
               </div>
             </div>
           </div>
 
           <div className="contact-history-list">
             <p className="contact-history-title">Shared Conversations ({2})</p>
-            <ItemList
+            {/* <ItemList
               contact_name="Foggy Nelson"
               desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hoc non est positum in nostra actione."
               index={0}
@@ -102,17 +131,13 @@ function ContactDetails({ activeContactID }: Props) {
               index={0}
               bgColor={"gray"}
               handleContactChange={() => {}}
-            />
+            /> */}
           </div>
 
           <SendMessage
-            show={showModal}
-            handleClose={handleClose}
-            message={message}
-            handleChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setMessage(e.target.value)
-            }
-            error={error}
+            state={state}
+            handleSave={handleSave}
+            handleChange={handleChange}
           />
         </React.Fragment>
       )}

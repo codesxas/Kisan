@@ -28,7 +28,7 @@ function History() {
   }, [history]);
 
   const handleGetContactItems = (page = 1, take = 10) => {
-    dispatch(actions.getContactItems({ page, take }));
+    // dispatch(actions.getContactItems({ page, take }));
   };
 
   const randomBackgroundGenerator = (index: number) => {
@@ -67,7 +67,7 @@ function History() {
 
   return (
     <div className="row">
-      {!loadingItems ? (
+      {/* {!loadingItems ? (
         <React.Fragment>
           <div className="section col-lg-3">
             <Header
@@ -103,7 +103,7 @@ function History() {
         </React.Fragment>
       ) : (
         <div>Loading</div>
-      )}
+      )} */}
     </div>
   );
 }
