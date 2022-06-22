@@ -15,16 +15,22 @@ function Contact() {
     (state: any) => state.PostReducer
   );
 
-  const [activeContact, setActiveContact] = useState<any | null>(null);
-  const [searchContact, setSearchContact] = useState("");
-  const [contactData, setContactData] = useState(contacts);
+  const [state, setState] = useState({
+    activeContact: null,
+    searchContact: "",
+    contactData: contacts,
+    type: "contact_not_selected",
+    desc: "Please select any contact to view their details",
+    contactType: "contact",
+  });
 
   useEffect(() => {
-    if (!contacts.length) handleGetContactItems();
+    if (!contacts.length || contacts.length !== state.contactData.length)
+      handleGetContactItems();
   }, []);
 
   useEffect(() => {
-    setContactData(contacts);
+    handleChange("contactData", contacts);
   }, [contacts]);
 
   const handleGetContactItems = () => {
@@ -43,9 +49,9 @@ function Contact() {
     return contacts[index].bgColor;
   };
 
-  const handleContactChange = (index: number) => {
-    const selectedContact = contacts[index];
-    setActiveContact(selectedContact);
+  const handleOnContactClick = (index: number) => {
+    const selectedContact = state.contactData[index];
+    handleChange("activeContact", selectedContact);
 
     if (window.innerWidth < 768) {
       navigate(`/mobile/contact/${selectedContact.id}`);
@@ -55,7 +61,7 @@ function Contact() {
   const handleContactSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const searchValue = e.target.value;
-    setSearchContact(searchValue);
+    handleChange("searchContact", searchValue);
 
     const searchResult = contacts.filter(
       (item: any) =>
@@ -63,7 +69,19 @@ function Contact() {
         item.last_name.toLowerCase().includes(searchValue.toLowerCase())
     );
 
-    setContactData(searchResult);
+    handleChange("contactData", searchResult);
+
+    if (!searchResult.length) {
+      handleChange("desc", "Please try searching for another contact");
+      handleChange("type", "contact_not_found");
+    }
+  };
+
+  const handleChange = (check: string, value: any) => {
+    setState((prevState) => ({
+      ...prevState,
+      [check]: value,
+    }));
   };
 
   return (
@@ -73,13 +91,13 @@ function Contact() {
           <div className="section col-md-3">
             <Header
               title="Contact Book"
-              numOfContacts={contactData.length}
-              searchContact={searchContact}
+              numOfContacts={state.contactData.length}
+              searchContact={state.searchContact}
               handleContactSearch={handleContactSearch}
             />
 
             <div className="contact-list">
-              {contactData.map((item: any, index: number) => (
+              {state.contactData.map((item: any, index: number) => (
                 <React.Fragment key={index}>
                   <ItemList
                     contactDetails={{
@@ -87,7 +105,7 @@ function Contact() {
                       desc: item.organization,
                     }}
                     bgColor={randomBackgroundGenerator(index)}
-                    handleContactChange={handleContactChange}
+                    handleOnContactClick={handleOnContactClick}
                     index={index}
                   />
                 </React.Fragment>
@@ -97,11 +115,11 @@ function Contact() {
 
           <div className="section col-md-9">
             <View
-              activeContactID={activeContact ? activeContact.id : ""}
-              contactType="contact"
+              activeContact={state.activeContact}
+              contactType={state.contactType}
               noContactData={{
-                desc: "Please select any contact to view their details",
-                type: "contact_not_selected",
+                desc: state.desc,
+                type: state.type,
               }}
             />
           </div>

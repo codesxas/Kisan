@@ -59,7 +59,7 @@ function ContactDetails({ activeContactID }: Props) {
 
   return (
     <div className="contact-details">
-      {Object.keys(selectedContact).length && (
+      {!loadingSelectedContacts && Object.keys(selectedContact).length ? (
         <React.Fragment>
           <div className="header">
             <div className="img-wrap bg-teal">
@@ -139,6 +139,8 @@ function ContactDetails({ activeContactID }: Props) {
             handleChange={handleChange}
           />
         </React.Fragment>
+      ) : (
+        <div>Loading</div>
       )}
     </div>
   );

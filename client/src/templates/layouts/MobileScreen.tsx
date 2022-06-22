@@ -7,15 +7,23 @@ function MobileScreen() {
   const location = useLocation();
   const pathName = location.pathname;
 
+  const contactType = pathName.includes("contact") ? "contact" : "history";
+  const desc =
+    contactType === "contact"
+      ? "Please select any contact to view their details"
+      : "Please select any contact to view the chat history";
+
+  const type =
+    contactType === "contact"
+      ? "contact_not_selected"
+      : "contact_history_not_selected";
+
   return (
     <div>
       <View
-        activeContactID={params.id ? params.id : ""}
-        contactType={pathName.includes("contact") ? "contact" : "history"}
-        noContactData={{
-          desc: "Please select any contact to view their details",
-          type: "contact_not_selected",
-        }}
+        activeContact={params}
+        contactType={contactType}
+        noContactData={{ desc, type }}
       />
     </div>
   );

@@ -15,16 +15,22 @@ function History() {
     (state: any) => state.PostReducer
   );
 
-  const [activeContact, setActiveContact] = useState<any | null>(null);
-  const [searchContact, setSearchContact] = useState("");
-  const [contactData, setContactData] = useState(history);
+  const [state, setState] = useState({
+    activeContact: null,
+    searchContact: "",
+    contactData: history,
+    contactType: "history",
+    desc: "Please select any contact to view the chat history",
+    type: "contact_history_not_selected",
+  });
 
   useEffect(() => {
-    if (!history.length) handleGetContactItems();
+    if (!history.length || history.length !== state.contactData.length)
+      handleGetContactItems();
   }, []);
 
   useEffect(() => {
-    setContactData(history);
+    handleChange("contactData", history);
   }, [history]);
 
   const handleGetContactItems = () => {
@@ -43,9 +49,9 @@ function History() {
     return history[index].bgColor;
   };
 
-  const handleContactChange = (index: number) => {
-    const selectedContact = contactData[index];
-    setActiveContact(selectedContact);
+  const handleOnContactClick = (index: number) => {
+    const selectedContact = state.contactData[index];
+    handleChange("activeContact", selectedContact);
 
     if (window.innerWidth < 768) {
       navigate(`/mobile/history/${selectedContact.id}`);
@@ -55,13 +61,25 @@ function History() {
   const handleContactSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const searchValue = e.target.value;
-    setSearchContact(searchValue);
+    handleChange("searchContact", searchValue);
 
     const searchResult = history.filter((item: any) =>
       item.name.toLowerCase().includes(searchValue.toLowerCase())
     );
 
-    setContactData(searchResult);
+    handleChange("contactData", searchResult);
+
+    if (!searchResult.length) {
+      handleChange("desc", "Please try searching for another contact");
+      handleChange("type", "contact_not_found");
+    }
+  };
+
+  const handleChange = (check: string, value: any) => {
+    setState((prevState) => ({
+      ...prevState,
+      [check]: value,
+    }));
   };
 
   return (
@@ -71,13 +89,13 @@ function History() {
           <div className="section col-lg-3">
             <Header
               title="History"
-              numOfContacts={contactData.length}
-              searchContact={searchContact}
+              numOfContacts={state.contactData.length}
+              searchContact={state.searchContact}
               handleContactSearch={handleContactSearch}
             />
 
             <div className="contact-list">
-              {contactData.map((item: any, index: number) => (
+              {state.contactData.map((item: any, index: number) => (
                 <ItemList
                   contactDetails={{
                     name: `${item.first_name} ${item.last_name}`,
@@ -85,7 +103,7 @@ function History() {
                     date: item.date,
                   }}
                   bgColor={randomBackgroundGenerator(index)}
-                  handleContactChange={handleContactChange}
+                  handleOnContactClick={handleOnContactClick}
                   index={index}
                 />
               ))}
@@ -94,11 +112,11 @@ function History() {
 
           <div className="section col-lg-9">
             <View
-              activeContactID={activeContact ? activeContact.id : ""}
-              contactType="history"
+              activeContact={state.activeContact}
+              contactType={state.contactType}
               noContactData={{
-                desc: "Please select any contact to view the chat history",
-                type: "contact_history_not_selected",
+                desc: state.desc,
+                type: state.type,
               }}
             />
           </div>

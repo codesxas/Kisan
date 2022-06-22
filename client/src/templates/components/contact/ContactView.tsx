@@ -1,16 +1,16 @@
-import React from "react";
 import MessageHistory from "../history/MessageHistory";
 import ContactDetails from "./ContactDetails";
 import NoContactView from "./NoContactView";
 
 type Props = {
-  activeContactID: string;
-  contactType: string | null;
+  activeContact: any | null;
+  contactType: string;
   noContactData: any | null;
 };
 
-function View({ activeContactID, contactType, noContactData }: Props) {
+function View({ activeContact, contactType, noContactData }: Props) {
   const { desc, type } = noContactData;
+  const activeContactID = activeContact ? activeContact.id : "";
 
   return (
     <div className="contact-view">
@@ -21,21 +21,6 @@ function View({ activeContactID, contactType, noContactData }: Props) {
           <MessageHistory
             contact_name="Dian Loft"
             message_list={[
-              {
-                message:
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hoc non est positum in nostra actione.",
-                datetime: "12th Jan, 2021 7:05 pm",
-              },
-              {
-                message:
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hoc non est positum in nostra actione.",
-                datetime: "12th Jan, 2021 7:05 pm",
-              },
-              {
-                message:
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hoc non est positum in nostra actione.",
-                datetime: "12th Jan, 2021 7:05 pm",
-              },
               {
                 message:
                   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hoc non est positum in nostra actione.",
