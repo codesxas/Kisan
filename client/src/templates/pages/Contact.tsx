@@ -20,7 +20,7 @@ function Contact() {
   const [contactData, setContactData] = useState(contacts);
 
   useEffect(() => {
-    handleGetContactItems();
+    if (!contacts.length) handleGetContactItems();
   }, []);
 
   useEffect(() => {
@@ -82,7 +82,10 @@ function Contact() {
               {contactData.map((item: any, index: number) => (
                 <React.Fragment key={index}>
                   <ItemList
-                    contact_details={{ ...item }}
+                    contactDetails={{
+                      name: `${item.first_name} ${item.last_name}`,
+                      desc: item.organization,
+                    }}
                     bgColor={randomBackgroundGenerator(index)}
                     handleContactChange={handleContactChange}
                     index={index}

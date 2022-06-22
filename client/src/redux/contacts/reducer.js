@@ -6,10 +6,16 @@ const initialState = {
 
   selectedContact: {},
   loadingSelectedContacts: false,
-  historyContact: [],
-  post: {},
-  loadingHistoryItems: false,
-  loadingPostDetails: false,
+
+  sendingMessage: false,
+  postMessage: {},
+
+  loadingMessages: false,
+  messages: [],
+
+  loadingHistory: false,
+  history: [],
+
   error: {
     message: "",
   },
@@ -49,29 +55,65 @@ const PostReducer = (state = initialState, action) => {
       };
       break;
 
-    // case types.POST_ITEMS:
-    //   state = { ...state, loadingPostDetails: true };
-    //   break;
-    // case types.POST_ITEM_SUCCESS:
-    //   state = { ...state, post: action.payload[0], loadingPostDetails: false };
-    //   break;
-    // case types.POST_ITEM_FAIL:
-    //   state = {
-    //     ...state,
-    //     error: {
-    //       message: "Error",
-    //     },
-    //     loadingPostDetails: false,
-    //   };
-    //   break;
+    case types.POST_MESSAGE:
+      state = { ...state, sendingMessages: true };
+      break;
+    case types.POST_MESSAGE_SUCCESS:
+      state = {
+        ...state,
+        postMessage: action.payload[0],
+        sendingMessage: false,
+      };
+      break;
+    case types.POST_MESSAGE_FAIL:
+      state = {
+        ...state,
+        error: {
+          message: "Error",
+        },
+        sendingMessage: false,
+      };
+      break;
 
-    // case types.GET_HISTORY_ITEM_FAIL:
-    //   state = {
-    //     ...state,
-    //     error: { message: "Error" },
-    //     loadingFavoriteItems: false,
-    //   };
-    //   break;
+    case types.GET_MESSAGES:
+      state = { ...state, loadingMessages: true };
+      break;
+    case types.GET_MESSAGES_SUCCESS:
+      state = {
+        ...state,
+        messages: action.payload[0],
+        loadingMessages: false,
+      };
+      break;
+    case types.GET_MESSAGES_FAIL:
+      state = {
+        ...state,
+        error: {
+          message: "Error",
+        },
+        loadingMessages: false,
+      };
+      break;
+
+    case types.GET_CONTACT_HISTORY:
+      state = { ...state, loadingHistory: true };
+      break;
+    case types.GET_CONTACT_HISTORY_SUCCESS:
+      state = {
+        ...state,
+        history: action.payload[0],
+        loadingHistory: false,
+      };
+      break;
+    case types.GET_CONTACT_HISTORY_FAIL:
+      state = {
+        ...state,
+        error: {
+          message: "Error",
+        },
+        loadingHistory: false,
+      };
+      break;
 
     default:
       state = { ...state };

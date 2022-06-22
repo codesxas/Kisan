@@ -21,29 +21,40 @@ function* onGetSelectedContact(action) {
   }
 }
 
-// function* onPostItems(action) {
-//   try {
-//     const response = yield call(() => api.postItem(action.payload));
-//     yield put(actions.postMessageItemSuccess(response));
-//   } catch (error) {
-//     yield put(actions.postMessageItemFail(error.response));
-//   }
-// }
+function* onPostMessage(action) {
+  try {
+    const response = yield call(() => api.postMessage(action.payload));
+    yield put(actions.postMessageSuccess(response));
+  } catch (error) {
+    yield put(actions.postMessageFail(error.response));
+  }
+}
 
-// function* onGetHistoryItems() {
-//   try {
-//     const response = yield call(api.getHistoryItems);
-//     yield put(actions.getHistoryItemsSuccess(response));
-//   } catch (error) {
-//     yield put(actions.getHistoryItemsFail(error.response));
-//   }
-// }
+function* onGetMessages(action) {
+  try {
+    const response = yield call(() => api.getMessages(action.payload));
+    yield put(actions.getMessagesSuccess(response));
+  } catch (error) {
+    yield put(actions.getMessagesFail(error.response));
+  }
+}
+
+function* onGetContactHistory(action) {
+  try {
+    const response = yield call(() => api.getContactHistory(action.payload));
+    yield put(actions.getContactHistorySuccess(response));
+  } catch (error) {
+    yield put(actions.getContactHistoryFail(error.response));
+  }
+}
 
 function* PostSaga() {
   yield takeLatest(types.GET_CONTACTS, onGetContacts);
   yield takeLatest(types.GET_SELECTED_CONTACT, onGetSelectedContact);
-  // yield takeLatest(types.POST_ITEMS, onPostItems);
-  // yield takeLatest(types.GET_HISTORY_ITEMS, onGetHistoryItems);
+
+  yield takeLatest(types.POST_MESSAGE, onPostMessage);
+  yield takeLatest(types.GET_MESSAGES, onGetMessages);
+  yield takeLatest(types.GET_CONTACT_HISTORY, onGetContactHistory);
 }
 
 export default PostSaga;

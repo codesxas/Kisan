@@ -11,7 +11,7 @@ import View from "../components/contact/ContactView";
 function History() {
   let navigate = useNavigate();
   let dispatch = useDispatch();
-  const { loadingItems, history } = useSelector(
+  const { loadingHistory, history } = useSelector(
     (state: any) => state.PostReducer
   );
 
@@ -20,15 +20,15 @@ function History() {
   const [contactData, setContactData] = useState(history);
 
   useEffect(() => {
-    handleGetContactItems();
+    if (!history.length) handleGetContactItems();
   }, []);
 
   useEffect(() => {
     setContactData(history);
   }, [history]);
 
-  const handleGetContactItems = (page = 1, take = 10) => {
-    // dispatch(actions.getContactItems({ page, take }));
+  const handleGetContactItems = () => {
+    dispatch(actions.getMessages());
   };
 
   const randomBackgroundGenerator = (index: number) => {
@@ -47,9 +47,8 @@ function History() {
     const selectedContact = contactData[index];
     setActiveContact(selectedContact);
 
-
     if (window.innerWidth < 768) {
-      navigate(`/mobile/history/${selectedContact.id}`)
+      navigate(`/mobile/history/${selectedContact.id}`);
     }
   };
 
@@ -67,7 +66,7 @@ function History() {
 
   return (
     <div className="row">
-      {/* {!loadingItems ? (
+      {!loadingHistory ? (
         <React.Fragment>
           <div className="section col-lg-3">
             <Header
@@ -80,8 +79,11 @@ function History() {
             <div className="contact-list">
               {contactData.map((item: any, index: number) => (
                 <ItemList
-                  contact_name={item.name}
-                  desc={item.desc}
+                  contactDetails={{
+                    name: `${item.first_name} ${item.last_name}`,
+                    desc: item.message,
+                    date: item.date,
+                  }}
                   bgColor={randomBackgroundGenerator(index)}
                   handleContactChange={handleContactChange}
                   index={index}
@@ -103,7 +105,7 @@ function History() {
         </React.Fragment>
       ) : (
         <div>Loading</div>
-      )} */}
+      )}
     </div>
   );
 }

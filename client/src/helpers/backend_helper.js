@@ -5,7 +5,11 @@ import * as url from "./url_helper";
 export const getContacts = (config) => get(url.GET_CONTACT, { config });
 
 // post new message
-export const postItem = (data) => post(url.POST_MESSAGE, data);
+export const postMessage = (data) => post(url.POST_MESSAGE, data);
 
 // get all history information
-export const getHistoryItems = (params) => get(url.POST_MESSAGE, { params });
+export const getMessages = (params) => get(url.GET_MESSAGE, { params });
+
+// get all messages sent to a particular contact
+export const getContactHistory = (params) =>
+  get(url.GET_CONTACT_HISTORY, { params });

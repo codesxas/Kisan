@@ -53,7 +53,6 @@ function ContactDetails({ activeContactID }: Props) {
     const regex = new RegExp(/\b[0-9]{6}\b/g);
     const result = regex.test(state.message);
 
-
     handleChange("error", !result);
     handleChange("showModal", !result);
   };

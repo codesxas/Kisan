@@ -1,7 +1,8 @@
 .contact-details {
-  margin: 0 20rem;
+  padding: 0 20rem;
   overflow: scroll;
   height: 100vh;
+  margin-right: 0.5rem;
 
   @media only screen and (max-width: $media-lg) {
     margin: 0 10rem;

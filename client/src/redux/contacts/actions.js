@@ -1,6 +1,6 @@
 import * as types from "./actionTypes";
 
-// get contact items/list (paginated data)
+// get contact items/list
 export const getContact = (params) => {
   return {
     type: types.GET_CONTACTS,
@@ -20,6 +20,7 @@ export const getContactsFail = (error) => {
   };
 };
 
+// get contact by id
 export const getSelectedContact = (params) => {
   return {
     type: types.GET_SELECTED_CONTACT,
@@ -39,43 +40,62 @@ export const getSelectedContactFail = (error) => {
   };
 };
 
+// post message
+export const postMessage = (payload) => {
+  return {
+    type: types.POST_MESSAGE,
+    payload,
+  };
+};
+export const postMessageSuccess = (post) => {
+  return {
+    type: types.POST_MESSAGE_SUCCESS,
+    payload: post,
+  };
+};
+export const postMessageFail = (error) => {
+  return {
+    type: types.POST_MESSAGE_FAIL,
+    payload: error,
+  };
+};
 
-// // post message detail-item
-// export const postMessageItem = (payload) => {
-//   return {
-//     type: types.POST_ITEMS,
-//     payload,
-//   };
-// };
-// export const postMessageItemSuccess = (post) => {
-//   return {
-//     type: types.POST_ITEM_SUCCESS,
-//     payload: post,
-//   };
-// };
-// export const postMessageItemFail = (error) => {
-//   return {
-//     type: types.POST_ITEM_FAIL,
-//     payload: error,
-//   };
-// };
+// get all message history
+export const getMessages = (params) => {
+  return {
+    type: types.GET_MESSAGES,
+    params,
+  };
+};
+export const getMessagesSuccess = (payload) => {
+  return {
+    type: types.GET_MESSAGES_SUCCESS,
+    payload,
+  };
+};
+export const getMessagesFail = (error) => {
+  return {
+    type: types.GET_MESSAGES_FAIL,
+    payload: error,
+  };
+};
 
-// // get history items/list (paginated data)
-// export const getHistoryItems = (params) => {
-//   return {
-//     type: types.GET_ITEMS,
-//     params,
-//   };
-// };
-// export const getHistoryItemsSuccess = (payload) => {
-//   return {
-//     type: types.GET_HISTORY_ITEM_SUCCESS,
-//     payload,
-//   };
-// };
-// export const getHistoryItemsFail = (error) => {
-//   return {
-//     type: types.GET_HISTORY_ITEM_FAIL,
-//     payload: error,
-//   };
-// };
+// get contact history
+export const getContactHistory = (params) => {
+  return {
+    type: types.GET_CONTACT_HISTORY,
+    params,
+  };
+};
+export const getContactHistorySuccess = (payload) => {
+  return {
+    type: types.GET_CONTACT_HISTORY_SUCCESS,
+    payload,
+  };
+};
+export const getContactHistoryFail = (error) => {
+  return {
+    type: types.GET_CONTACT_HISTORY_FAIL,
+    payload: error,
+  };
+};

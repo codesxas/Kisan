@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import PageNotFound from '../../assets/images/page-not-found.svg'
+import PageNotFound from "../../assets/images/page-not-found.svg";
 
 function NotFound() {
   return (
